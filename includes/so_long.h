@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 16:10:00 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/11 12:44:26 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/11 14:02:48 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,6 +194,7 @@ void				free_list(t_list *head);
 // game/init_game.c
 int					init_game(t_game *game, char **map, int nb_lines);
 void				render_map(t_game *game);
+char				get_tile_type(t_game *game, int x, int y);
 void				put_image_with_transparency(t_game *game, void *floor,
 						void *sprite, int x, int y);
 
