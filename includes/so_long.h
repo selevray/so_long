@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 16:10:00 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/11 11:39:37 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/11 11:56:51 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@
 # define DIR_DOWN 1
 # define DIR_LEFT 2
 # define DIR_RIGHT 3
+
+# define MAGENTA 0x00FF00FF
 
 typedef struct s_gnl
 {
@@ -193,13 +195,14 @@ void				free_list(t_list *head);
 // game/init_game.c
 int					init_game(t_game *game, char **map, int nb_lines);
 void				render_map(t_game *game);
+void				put_image_with_transparency(t_game *game, void *img, int x,
+						int y);
+
 // ========== GRAPHICS ==========
 
 // graphics/load_textures_all.c
 void				*load_texture(void *mlx, char *path);
 int					load_all_textures(t_game *game);
-void				put_image_with_transparency(t_game *game, void *img, int x,
-						int y);
 
 // graphics/load_textures_floor.c
 int					load_water_textures(t_game *game);

@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 10:35:27 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/11 11:40:37 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/11 11:57:11 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,13 +94,14 @@ void	render_tile(t_game *game, int x, int y)
 		mlx_put_image_to_window(game->mlx, game->window, game->textures.water1,
 			pixel_x, pixel_y);
 	else if (type == 'P')
-		mlx_put_image_to_window(game, game->textures.player_down[0], pixel_x, pixel_y, x, y);
+		render_floor(game, game->textures.player_down[0], pixel_x, pixel_y, x,
+			y);
 	else if (type == 'T')
-		mlx_put_image_to_window(game, game->textures.tree, pixel_x, pixel_y, x, y);
+		render_floor(game, game->textures.tree, pixel_x, pixel_y, x, y);
 	else if (type == 'C')
-		mlx_put_image_to_window(game, game->textures.collectible, pixel_x, pixel_y, x, y);
+		render_floor(game, game->textures.collectible, pixel_x, pixel_y, x, y);
 	else if (type == 'E')
-		mlx_put_image_to_window(game, game->textures.exit, pixel_x, pixel_y, x, y);
+		render_floor(game, game->textures.exit, pixel_x, pixel_y, x, y);
 	else if (type == '0')
 	{
 		mlx_put_image_to_window(game->mlx, game->window, get_floor_texture(game,
@@ -110,10 +111,10 @@ void	render_tile(t_game *game, int x, int y)
 
 void	render_map(t_game *game)
 {
-	int y;
-    int x;
+	int	y;
+	int	x;
 
-    y = 0;
+	y = 0;
 	while (y < game->map_height)
 	{
 		x = 0;
@@ -126,38 +127,30 @@ void	render_map(t_game *game)
 	}
 }
 
-
-#include "so_long.h"
-
-#define MAGENTA 0x00FF00FF
-
-void put_image_with_transparency(t_game *game, void *img, int x, int y)
+void	put_image_with_transparency(t_game *game, void *img, int x, int y)
 {
-    char    *data;
-    int     bpp;
-    int     size_line;
-    int     endian;
-    int     i;
-    int     j;
-    int     color;
-    int     pixel_offset;
-    
-    data = mlx_get_data_addr(img, &bpp, &size_line, &endian);
-    
-    i = 0;
-    while (i < TILE_SIZE)
-    {
-        j = 0;
-        while (j < TILE_SIZE)
-        {
-            pixel_offset = i * size_line + j * (bpp / 8);
-            color = *(int *)(data + pixel_offset);
-            
-            if ((color & 0x00FFFFFF) != MAGENTA)
-                mlx_pixel_put(game->mlx, game->window, x + j, y + i, color);
-            
-            j++;
-        }
-        i++;
-    }
+	char	*data;
+	int		bpp;
+	int		size_line;
+	int		endian;
+	int		i;
+	int		j;
+	int		color;
+	int		pixel_offset;
+
+	data = mlx_get_data_addr(img, &bpp, &size_line, &endian);
+	i = 0;
+	while (i < TILE_SIZE)
+	{
+		j = 0;
+		while (j < TILE_SIZE)
+		{
+			pixel_offset = i * size_line + j * (bpp / 8);
+			color = *(int *)(data + pixel_offset);
+			if ((color & 0x00FFFFFF) != MAGENTA)
+				mlx_pixel_put(game->mlx, game->window, x + j, y + i, color);
+			j++;
+		}
+		i++;
+	}
 }
