@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 09:53:05 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/10 19:11:29 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/11 12:59:48 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	load_other_texture(t_game *game)
 {
 	game->textures.collectible = load_texture(game->mlx,
-			"texture/other/milk.xpm");
+			"texture/other/milk_small.xpm");
 	if (!game->textures.collectible)
 		return (0);
 	game->textures.exit = load_texture(game->mlx, "texture/other/exit.xpm");

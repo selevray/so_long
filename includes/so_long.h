@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 16:10:00 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/11 11:56:51 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/11 12:44:26 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define SO_LONG_H
 
 # include "../minilibx-linux/mlx.h"
-# include "so_long.h"
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -195,8 +194,8 @@ void				free_list(t_list *head);
 // game/init_game.c
 int					init_game(t_game *game, char **map, int nb_lines);
 void				render_map(t_game *game);
-void				put_image_with_transparency(t_game *game, void *img, int x,
-						int y);
+void				put_image_with_transparency(t_game *game, void *floor,
+						void *sprite, int x, int y);
 
 // ========== GRAPHICS ==========
 
