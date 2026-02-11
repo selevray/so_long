@@ -2,7 +2,7 @@
 static char *front_hero_wait[] = {
 /* columns rows colors chars-per-pixel */
 "64 64 232 2 ",
-"   c None",
+"   c #FF00FF",
 ".  c #1F1115",
 "X  c #2E1A0A",
 "o  c #301C04",

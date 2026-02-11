@@ -2,7 +2,7 @@
 static char *left_hero_wait[] = {
 /* columns rows colors chars-per-pixel */
 "64 64 210 2 ",
-"   c None",
+"   c #FF00FF",
 ".  c #2D1C13",
 "X  c #2C1B1D",
 "o  c #24181B",

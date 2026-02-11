@@ -2,7 +2,7 @@
 static char *back_hero[] = {
 /* columns rows colors chars-per-pixel */
 "64 64 208 2 ",
-"   c None",
+"   c #FF00FF",
 ".  c #2A1D1A",
 "X  c #26191C",
 "o  c #341D1B",

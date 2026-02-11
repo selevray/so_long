@@ -2,7 +2,7 @@
 static char *left_hero_walk1[] = {
 /* columns rows colors chars-per-pixel */
 "64 64 204 2 ",
-"   c None",
+"   c #FF00FF",
 ".  c #2A1A0E",
 "X  c #2B1B13",
 "o  c #2F1E1D",

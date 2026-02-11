@@ -2,7 +2,7 @@
 static char *front_hero[] = {
 /* columns rows colors chars-per-pixel */
 "64 64 226 2 ",
-"   c None",
+"   c #FF00FF",
 ".  c #321E0B",
 "X  c #2B1B1C",
 "o  c #251A1C",

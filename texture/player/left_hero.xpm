@@ -2,7 +2,7 @@
 static char *left_hero[] = {
 /* columns rows colors chars-per-pixel */
 "64 64 199 2 ",
-"   c None",
+"   c #FF00FF",
 ".  c #241305",
 "X  c #2D1E14",
 "o  c #2D1B1D",

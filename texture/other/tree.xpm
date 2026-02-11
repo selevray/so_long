@@ -2,7 +2,7 @@
 static char *tree[] = {
 /* columns rows colors chars-per-pixel */
 "64 64 166 2 ",
-"   c None",
+"   c #FF00FF",
 ".  c #4E2F1C",
 "X  c #512F1A",
 "o  c #4D301C",

@@ -2,7 +2,7 @@
 static char *back_hero_walk2[] = {
 /* columns rows colors chars-per-pixel */
 "64 64 207 2 ",
-"   c None",
+"   c #FF00FF",
 ".  c #22161A",
 "X  c #2C161E",
 "o  c #2A1A1D",

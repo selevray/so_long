@@ -2,7 +2,7 @@
 static char *right_hero[] = {
 /* columns rows colors chars-per-pixel */
 "64 64 198 2 ",
-"   c None",
+"   c #FF00FF",
 ".  c #2B1B14",
 "X  c #26181C",
 "o  c #2C1B1C",

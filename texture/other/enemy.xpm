@@ -2,7 +2,7 @@
 static char *Enemies[] = {
 /* columns rows colors chars-per-pixel */
 "64 64 184 2 ",
-"   c None",
+"   c #FF00FF",
 ".  c #020102",
 "X  c #090104",
 "o  c #060209",

@@ -2,7 +2,7 @@
 static char *front_hero_walk1[] = {
 /* columns rows colors chars-per-pixel */
 "64 64 220 2 ",
-"   c None",
+"   c #FF00FF",
 ".  c #291A1B",
 "X  c #301D1E",
 "o  c #3D3008",

@@ -2,7 +2,7 @@
 static char *Milk_Item[] = {
 /* columns rows colors chars-per-pixel */
 "64 64 196 2 ",
-"   c None",
+"   c #FF00FF",
 ".  c #2C245D",
 "X  c #2F2858",
 "o  c #352E5B",

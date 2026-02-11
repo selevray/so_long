@@ -2,7 +2,7 @@
 static char *back_hero_wait[] = {
 /* columns rows colors chars-per-pixel */
 "64 64 218 2 ",
-"   c None",
+"   c #FF00FF",
 ".  c #160D1D",
 "X  c #2D1C1B",
 "o  c #2E1918",
