@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 10:20:29 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/10 19:07:49 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/11 09:26:29 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,37 @@ int	load_all_textures(t_game *game)
 		return (printf("FAILED: other textures\n"), 0);
 	printf("All textures loaded successfully!\n");
 	return (1);
+}
+
+void put_image_transparent(t_game *game, void *img, int x, int y)
+{
+    char    *data;
+    int     bpp;
+    int     size_line;
+    int     endian;
+    int     i;
+    int     j;
+    int     color;
+    
+    data = mlx_get_data_addr(img, &bpp, &size_line, &endian);
+    
+    i = 0;
+    while (i < TILE_SIZE)
+    {
+        j = 0;
+        while (j < TILE_SIZE)
+        {
+            // Récupérer la couleur du pixel
+            color = *(int *)(data + (i * size_line + j * (bpp / 8)));
+            
+            // Si le pixel n'est PAS noir (transparent), on le dessine
+            if ((color & 0x00FFFFFF) != 0x00000000)
+            {
+                mlx_pixel_put(game->mlx, game->window, 
+                    x + j, y + i, color);
+            }
+            j++;
+        }
+        i++;
+    }
 }

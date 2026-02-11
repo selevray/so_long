@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 16:10:00 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/10 17:46:04 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/11 09:27:13 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,6 +196,8 @@ void				render_map(t_game *game);
 // graphics/load_textures_all.c
 void				*load_texture(void *mlx, char *path);
 int					load_all_textures(t_game *game);
+void				put_image_transparent(t_game *game, void *img, int x,
+						int y);
 
 // graphics/load_textures_floor.c
 int					load_water_textures(t_game *game);
