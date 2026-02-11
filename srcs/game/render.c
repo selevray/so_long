@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 10:35:27 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/11 09:28:25 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/11 09:35:00 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,13 +94,13 @@ void	render_tile(t_game *game, int x, int y)
 		mlx_put_image_to_window(game->mlx, game->window, game->textures.water1,
 			pixel_x, pixel_y);
 	else if (type == 'P')
-		put_image_transparent(game, game->textures.player_down[0], pixel_x, pixel_y, x, y);
+		mlx_put_image_to_window(game, game->textures.player_down[0], pixel_x, pixel_y, x, y);
 	else if (type == 'T')
-		put_image_transparent(game, game->textures.tree, pixel_x, pixel_y, x, y);
+		mlx_put_image_to_window(game, game->textures.tree, pixel_x, pixel_y, x, y);
 	else if (type == 'C')
-		put_image_transparent(game, game->textures.collectible, pixel_x, pixel_y, x, y);
+		mlx_put_image_to_window(game, game->textures.collectible, pixel_x, pixel_y, x, y);
 	else if (type == 'E')
-		put_image_transparent(game, game->textures.exit, pixel_x, pixel_y, x, y);
+		mlx_put_image_to_window(game, game->textures.exit, pixel_x, pixel_y, x, y);
 	else if (type == '0')
 	{
 		mlx_put_image_to_window(game->mlx, game->window, get_floor_texture(game,
