@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 09:53:05 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/11 12:59:48 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/13 13:04:41 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	load_other_texture(t_game *game)
 {
 	game->textures.collectible = load_texture(game->mlx,
-			"texture/other/milk_small.xpm");
+			"texture/other/pokeball.xpm");
 	if (!game->textures.collectible)
 		return (0);
 	game->textures.exit = load_texture(game->mlx, "texture/other/exit.xpm");
@@ -26,6 +26,10 @@ int	load_other_texture(t_game *game)
 		return (0);
 	game->textures.tree = load_texture(game->mlx, "texture/other/tree.xpm");
 	if (!game->textures.tree)
+		return (0);
+	game->textures.bullet = load_texture(game->mlx,
+			"texture/other/bullet.xpm");
+	if (!game->textures.bullet)
 		return (0);
 	return (1);
 }

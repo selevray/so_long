@@ -6,7 +6,7 @@
 #    By: selevray <selevray@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 14:42:25 by selevray          #+#    #+#              #
-#    Updated: 2026/02/11 12:44:00 by selevray         ###   ########.fr        #
+#    Updated: 2026/02/11 14:16:45 by selevray         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ PARSING = parsing/parse_map.c \
 GAME = game/init_game.c \
        game/render.c \
 	   game/render_trans.c \
+	   game/control.c
 
 # Graphics
 GRAPHICS = graphics/load_textures_all.c \

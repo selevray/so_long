@@ -6,16 +6,46 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 21:41:18 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/11 11:46:58 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/13 12:06:26 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+void	init_enemies(t_game *game, char **map, int nb_lines)
+{
+	int	i;
+	int	j;
+	int	index;
+
+	game->enemy_count = count_char(map, nb_lines, 'X');
+	game->enemies = malloc(sizeof(t_enemy) + game->enemy_count);
+	if (!game->enemies)
+		return ;
+	index = 0;
+	i = 0;
+	while (i < nb_lines)
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] == 'X')
+			{
+				game->enemies[index].x = j;
+				game->enemies[index].y = i;
+				index++;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
 int	init_game(t_game *game, char **map, int nb_lines)
 {
 	int	win_width;
 	int	win_height;
+	int	i;
 
 	game->mlx = mlx_init();
 	if (game->mlx == NULL)
@@ -32,6 +62,19 @@ int	init_game(t_game *game, char **map, int nb_lines)
 	find_player_position(map, nb_lines, &game->player_x, &game->player_y);
 	game->collectibles_left = count_char(map, nb_lines, COLLECTIBLE);
 	game->moves = 0;
+	game->enemy_timer = 0;
 	game->game_won = 0;
+	game->key_up = 0;
+	game->key_left = 0;
+	game->key_down = 0;
+	game->key_right = 0;
+	game->bullet_count = 0;
+	i = 0;
+	while (i < 10)
+	{
+		game->bullets[i].active = 0;
+		i++;
+	}
+	init_enemies(game, map, nb_lines);
 	return (1);
 }

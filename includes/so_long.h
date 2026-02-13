@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 16:10:00 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/11 14:02:48 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/13 12:47:54 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@
 # define KEY_LEFT 65361
 # define KEY_DOWN 65364
 # define KEY_RIGHT 65363
+# define KEY_SPACE 32
 
 /* Tile size */
 # define TILE_SIZE 64
 # define MAGENTA 0x00FF00FF
-# define TILE_SIZE_COLLECTIBLE 32
 
 /* Map elements */
 # define WALL '1'
@@ -72,7 +72,6 @@ typedef struct s_gnl
 	int				fd;
 }					t_gnl;
 
-/* Structures */
 typedef struct s_list
 {
 	char			*line;
@@ -95,6 +94,20 @@ typedef struct s_player
 	int				x;
 	int				y;
 }					t_player;
+
+typedef struct s_enemy
+{
+	int				x;
+	int				y;
+}					t_enemy;
+
+typedef struct s_bullet
+{
+	int				x;
+	int				y;
+	int				direction;
+	int				active;
+}					t_bullet;
 
 typedef struct s_textures
 {
@@ -120,6 +133,7 @@ typedef struct s_textures
 	void			*player_right[4];
 
 	void			*enemy;
+	void			*bullet;
 }					t_textures;
 
 typedef struct s_game
@@ -138,6 +152,16 @@ typedef struct s_game
 	int				collectibles_left;
 	int				game_won;
 	int				tile_size;
+	int				key_up;
+	int				key_left;
+	int				key_down;
+	int				key_right;
+	t_enemy			*enemies;
+	int				enemy_count;
+	int				enemy_timer;
+	t_bullet		bullets[10];
+	int				bullet_count;
+
 }					t_game;
 
 typedef struct s_water_neighbors
@@ -197,6 +221,12 @@ void				render_map(t_game *game);
 char				get_tile_type(t_game *game, int x, int y);
 void				put_image_with_transparency(t_game *game, void *floor,
 						void *sprite, int x, int y);
+int					handle_keypress(int keycode, t_game *game);
+void				move_enemies(t_game *game);
+int					close_game(void *param);
+void				shoot_bullet(t_game *game);
+void				remove_enemy(t_game *game, int index);
+int					game_loop(t_game *game);
 
 // ========== GRAPHICS ==========
 

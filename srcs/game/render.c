@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 10:35:27 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/11 12:48:37 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/13 13:23:50 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,13 @@ void	*get_floor_texture(t_game *game, int x, int y)
 	return (select_floor_texture(game, water));
 }
 
-static void render_floor(t_game *game, void *texture, int px, int py, int x, int y)
+static void	render_floor(t_game *game, void *texture, int px, int py, int x,
+		int y)
 {
-    void *floor = get_floor_texture(game, x, y);
-    
-    put_image_with_transparency(game, floor, texture, px, py);
+	void	*floor;
+
+	floor = get_floor_texture(game, x, y);
+	put_image_with_transparency(game, floor, texture, px, py);
 }
 
 void	render_tile(t_game *game, int x, int y)
@@ -85,6 +87,7 @@ void	render_tile(t_game *game, int x, int y)
 	int		pixel_x;
 	int		pixel_y;
 	char	type;
+	int		i;
 
 	pixel_x = x * TILE_SIZE;
 	pixel_y = y * TILE_SIZE;
@@ -92,21 +95,55 @@ void	render_tile(t_game *game, int x, int y)
 	if (type == 'W')
 		mlx_put_image_to_window(game->mlx, game->window, game->textures.water1,
 			pixel_x, pixel_y);
-	else if (type == 'P')
-		render_floor(game, game->textures.player_down[0], pixel_x, pixel_y, x,
-			y);
-	else if (type == 'T')
-		render_floor(game, game->textures.tree, pixel_x, pixel_y, x, y);
-	else if (type == 'C')
-	{
-		render_floor(game, game->textures.collectible, pixel_x, pixel_y, x, y);
-	}
-	else if (type == 'E')
-		render_floor(game, game->textures.exit, pixel_x, pixel_y, x, y);
-	else if (type == '0')
-	{
+	if (type == '0' || type == 'P' || type == 'X')
 		mlx_put_image_to_window(game->mlx, game->window, get_floor_texture(game,
 				x, y), pixel_x, pixel_y);
+	if (x == game->player_x && y == game->player_y)
+		put_image_with_transparency(game, get_floor_texture(game, x, y),
+			game->textures.player_down[0], pixel_x, pixel_y);
+	if (type == 'T')
+		render_floor(game, game->textures.tree, pixel_x, pixel_y, x, y);
+	else if (type == 'C')
+		render_floor(game, game->textures.collectible, pixel_x, pixel_y, x, y);
+	else if (type == 'E')
+		render_floor(game, game->textures.exit, pixel_x, pixel_y, x, y);
+	i = 0;
+	while (i < game->enemy_count)
+	{
+		if (x == game->enemies[i].x && y == game->enemies[i].y)
+			put_image_with_transparency(game, get_floor_texture(game, x, y),
+				game->textures.enemy, pixel_x, pixel_y);
+		i++;
+	}
+	i = 0;
+	while (i < 10)
+	{
+		if (game->bullets[i].active && x == game->bullets[i].x
+			&& y == game->bullets[i].y)
+		{
+			mlx_put_image_to_window(game->mlx, game->window,
+				game->textures.bullet, pixel_x, pixel_y);
+		}
+		i++;
+	}
+}
+
+void	shoot_bullet(t_game *game)
+{
+	int	i;
+
+	i = 0;
+	while (i < 10)
+	{
+		if (game->bullets[i].active == 0)
+		{
+			game->bullets[i].x = game->player_x;
+			game->bullets[i].y = game->player_y;
+			game->bullets[i].direction = game->player_direction;
+			game->bullets[i].active = 1;
+			return ;
+		}
+		i++;
 	}
 }
 
