@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 16:10:00 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/13 12:47:54 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/13 15:41:56 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,6 +227,7 @@ int					close_game(void *param);
 void				shoot_bullet(t_game *game);
 void				remove_enemy(t_game *game, int index);
 int					game_loop(t_game *game);
+void				*get_player_sprite(t_game *game);
 
 // ========== GRAPHICS ==========
 

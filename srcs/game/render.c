@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 10:35:27 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/13 13:23:50 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/13 15:42:21 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	render_tile(t_game *game, int x, int y)
 				x, y), pixel_x, pixel_y);
 	if (x == game->player_x && y == game->player_y)
 		put_image_with_transparency(game, get_floor_texture(game, x, y),
-			game->textures.player_down[0], pixel_x, pixel_y);
+			get_player_sprite(game), pixel_x, pixel_y);
 	if (type == 'T')
 		render_floor(game, game->textures.tree, pixel_x, pixel_y, x, y);
 	else if (type == 'C')

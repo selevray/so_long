@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 13:53:07 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/13 13:19:42 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/13 13:45:54 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	handle_keypress(int keycode, t_game *game)
 	int		new_x;
 	int		new_y;
 	char	tile;
+	int		i;
 
 	new_x = game->player_x;
 	new_y = game->player_y;
@@ -43,7 +44,7 @@ int	handle_keypress(int keycode, t_game *game)
 	else if (keycode == KEY_SPACE)
 	{
 		printf("TIR! Direction actuelle: %d\n", game->player_direction);
-			// ← Ajouter
+		// ← Ajouter
 		shoot_bullet(game);
 		render_map(game);
 		return (0);
@@ -60,10 +61,18 @@ int	handle_keypress(int keycode, t_game *game)
 	game->moves++;
 	move_enemies(game);
 	printf("Mouvements : %d\n", game->moves);
-	if (game->map[new_y][new_x] == 'X')
+	i = 0;
+	while (i < game->enemy_count)
 	{
-		render_map(game);
-		exit(0);
+		if (new_x == game->enemies[i].x && new_y == game->enemies[i].y)
+		{
+			printf("\n╔════════════════════════╗\n");
+			printf("║     GAME OVER!         ║\n");
+			printf("║  Touche par un ennemi! ║\n");
+			printf("╚════════════════════════╝\n");
+			exit(0);
+		}
+		i++;
 	}
 	if (game->map[new_y][new_x] == COLLECTIBLE)
 	{
