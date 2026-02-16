@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 16:10:00 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/13 15:41:56 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/16 13:01:59 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ typedef struct s_enemy
 {
 	int				x;
 	int				y;
+	int				direction;
 }					t_enemy;
 
 typedef struct s_bullet
@@ -124,7 +125,7 @@ typedef struct s_textures
 	void			*water1;
 	void			*water2;
 	void			*tree;
-	void			*collectible;
+	void			*collectible[6];
 	void			*exit;
 
 	void			*player_up[4];
@@ -132,14 +133,22 @@ typedef struct s_textures
 	void			*player_left[4];
 	void			*player_right[4];
 
-	void			*enemy;
+	void			*enemy[4];
 	void			*bullet;
+
+	void			*youwin;
+	void			*gameover;
 }					t_textures;
 
 typedef struct s_game
 {
 	void			*mlx;
 	void			*window;
+	void			*img_buffer;
+	char			*img_data;
+	int				img_bpp;
+	int				img_line_len;
+	int				img_endian;
 	char			**map;
 	int				map_width;
 	int				map_height;
@@ -152,6 +161,8 @@ typedef struct s_game
 	int				collectibles_left;
 	int				game_won;
 	int				tile_size;
+	int				collectible_anim_frame;
+	int				enemy_anim_frame;
 	int				key_up;
 	int				key_left;
 	int				key_down;
@@ -212,7 +223,10 @@ char				*get_next_line(int fd);
 // utils/list_utils.c
 void				add_bottom(t_list **head, t_list *new);
 void				free_list(t_list *head);
-
+char				*ft_itoa(int n);
+char				*ft_strjoin(char const *s1, char const *s2);
+void				display_move_counter(t_game *game);
+char				*ft_itoa(int n);
 // ========== GAME ==========
 
 // game/init_game.c
@@ -221,6 +235,7 @@ void				render_map(t_game *game);
 char				get_tile_type(t_game *game, int x, int y);
 void				put_image_with_transparency(t_game *game, void *floor,
 						void *sprite, int x, int y);
+void				put_image_to_buffer(t_game *game, void *img, int x, int y);
 int					handle_keypress(int keycode, t_game *game);
 void				move_enemies(t_game *game);
 int					close_game(void *param);
@@ -228,6 +243,9 @@ void				shoot_bullet(t_game *game);
 void				remove_enemy(t_game *game, int index);
 int					game_loop(t_game *game);
 void				*get_player_sprite(t_game *game);
+void				cleanup_game(t_game *game);
+void				display_win_message(t_game *game);
+void				display_gameover_message(t_game *game);
 
 // ========== GRAPHICS ==========
 
@@ -249,5 +267,7 @@ int					load_hero_right(t_game *game);
 
 // graphics/load_textures_other.c
 int					load_other_texture(t_game *game);
+int					load_collectible(t_game *game);
+int					load_enemy(t_game *game);
 
 #endif

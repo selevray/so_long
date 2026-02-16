@@ -18,7 +18,7 @@ char	**list_to_array(t_list *head, int count_line)
 	int i;
 	t_list *temp;
 
-	map = malloc(sizeof(char *) * count_line);
+	map = malloc(sizeof(char *) * (count_line + 1));
 	if (map == NULL)
 		return (NULL);
 	temp = head;
@@ -29,6 +29,7 @@ char	**list_to_array(t_list *head, int count_line)
 		temp = temp->next;
 		i++;
 	}
+	map[i] = NULL;
 	return (map);
 }
 

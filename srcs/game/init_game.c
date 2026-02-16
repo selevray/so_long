@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 21:41:18 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/13 12:06:26 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/16 12:36:19 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	init_enemies(t_game *game, char **map, int nb_lines)
 	int	index;
 
 	game->enemy_count = count_char(map, nb_lines, 'X');
-	game->enemies = malloc(sizeof(t_enemy) + game->enemy_count);
+	game->enemies = malloc(sizeof(t_enemy) * game->enemy_count);
 	if (!game->enemies)
 		return ;
 	index = 0;
@@ -33,6 +33,7 @@ void	init_enemies(t_game *game, char **map, int nb_lines)
 			{
 				game->enemies[index].x = j;
 				game->enemies[index].y = i;
+				game->enemies[index].direction = 0;
 				index++;
 			}
 			j++;
@@ -59,11 +60,19 @@ int	init_game(t_game *game, char **map, int nb_lines)
 			"Cat SIMULATOR");
 	if (game->window == NULL)
 		return (0);
+	game->img_buffer = mlx_new_image(game->mlx, win_width, win_height);
+	if (game->img_buffer == NULL)
+		return (0);
+	game->img_data = mlx_get_data_addr(game->img_buffer, &game->img_bpp,
+			&game->img_line_len, &game->img_endian);
 	find_player_position(map, nb_lines, &game->player_x, &game->player_y);
 	game->collectibles_left = count_char(map, nb_lines, COLLECTIBLE);
 	game->moves = 0;
+	game->player_direction = 1;
 	game->enemy_timer = 0;
 	game->game_won = 0;
+	game->anim_frame = 0;
+	game->collectible_anim_frame = 0;
 	game->key_up = 0;
 	game->key_left = 0;
 	game->key_down = 0;

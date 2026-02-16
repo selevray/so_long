@@ -6,11 +6,61 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 10:35:27 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/13 15:42:21 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/16 14:21:43 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+void	put_image_to_buffer(t_game *game, void *img, int x, int y)
+{
+	char	*src_data;
+	int		src_bpp;
+	int		src_line_len;
+	int		src_endian;
+	int		i;
+	int		j;
+
+	if (!img)
+		return ;
+	src_data = mlx_get_data_addr(img, &src_bpp, &src_line_len, &src_endian);
+	i = 0;
+	while (i < TILE_SIZE)
+	{
+		j = 0;
+		while (j < TILE_SIZE)
+		{
+			if (x + j >= 0 && x + j < game->map_width * TILE_SIZE
+				&& y + i >= 0 && y + i < game->map_height * TILE_SIZE)
+			{
+				*(unsigned int *)(game->img_data + ((y + i) * game->img_line_len)
+					+ ((x + j) * (game->img_bpp / 8))) =
+					*(unsigned int *)(src_data + (i * src_line_len)
+					+ (j * (src_bpp / 8)));
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+void	display_move_counter(t_game *game)
+{
+	char	*moves_str;
+	char	*temp;
+	int		i;
+
+	i = game->moves;
+	temp = ft_itoa(i);
+	if (!temp)
+		return ;
+	moves_str = ft_strjoin("Mouvements: ", temp);
+	free(temp);
+	if (!moves_str)
+		return ;
+	mlx_string_put(game->mlx, game->window, 10, 20, 0xFFFFFF, moves_str);
+	free(moves_str);
+}
 
 char	get_tile_type(t_game *game, int x, int y)
 {
@@ -93,18 +143,19 @@ void	render_tile(t_game *game, int x, int y)
 	pixel_y = y * TILE_SIZE;
 	type = get_tile_type(game, x, y);
 	if (type == 'W')
-		mlx_put_image_to_window(game->mlx, game->window, game->textures.water1,
-			pixel_x, pixel_y);
+		put_image_to_buffer(game, game->textures.water1, pixel_x, pixel_y);
 	if (type == '0' || type == 'P' || type == 'X')
-		mlx_put_image_to_window(game->mlx, game->window, get_floor_texture(game,
-				x, y), pixel_x, pixel_y);
+		put_image_to_buffer(game, get_floor_texture(game, x, y), pixel_x,
+			pixel_y);
 	if (x == game->player_x && y == game->player_y)
 		put_image_with_transparency(game, get_floor_texture(game, x, y),
 			get_player_sprite(game), pixel_x, pixel_y);
 	if (type == 'T')
 		render_floor(game, game->textures.tree, pixel_x, pixel_y, x, y);
 	else if (type == 'C')
-		render_floor(game, game->textures.collectible, pixel_x, pixel_y, x, y);
+		render_floor(game,
+			game->textures.collectible[game->collectible_anim_frame % 6],
+			pixel_x, pixel_y, x, y);
 	else if (type == 'E')
 		render_floor(game, game->textures.exit, pixel_x, pixel_y, x, y);
 	i = 0;
@@ -112,7 +163,8 @@ void	render_tile(t_game *game, int x, int y)
 	{
 		if (x == game->enemies[i].x && y == game->enemies[i].y)
 			put_image_with_transparency(game, get_floor_texture(game, x, y),
-				game->textures.enemy, pixel_x, pixel_y);
+				game->textures.enemy[game->enemies[i].direction], pixel_x,
+				pixel_y);
 		i++;
 	}
 	i = 0;
@@ -121,7 +173,7 @@ void	render_tile(t_game *game, int x, int y)
 		if (game->bullets[i].active && x == game->bullets[i].x
 			&& y == game->bullets[i].y)
 		{
-			mlx_put_image_to_window(game->mlx, game->window,
+			put_image_with_transparency(game, get_floor_texture(game, x, y),
 				game->textures.bullet, pixel_x, pixel_y);
 		}
 		i++;
@@ -163,4 +215,6 @@ void	render_map(t_game *game)
 		}
 		y++;
 	}
+	mlx_put_image_to_window(game->mlx, game->window, game->img_buffer, 0, 0);
+	display_move_counter(game);
 }

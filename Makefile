@@ -6,7 +6,7 @@
 #    By: selevray <selevray@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 14:42:25 by selevray          #+#    #+#              #
-#    Updated: 2026/02/13 15:38:26 by selevray         ###   ########.fr        #
+#    Updated: 2026/02/16 13:01:06 by selevray         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,10 +37,11 @@ PARSING = parsing/parse_map.c \
 
 # Game
 GAME = game/init_game.c \
+	   game/animation.c \
        game/render.c \
 	   game/render_trans.c \
 	   game/control.c \
-	   game/animations.c \
+	   game/cleanup.c \
 
 # Graphics
 GRAPHICS = graphics/load_textures_all.c \
@@ -50,7 +51,8 @@ GRAPHICS = graphics/load_textures_all.c \
 
 # Utils
 UTILS = utils/get_next_line.c \
-        utils/list_utils.c 
+        utils/list_utils.c \
+        utils/utils.c
 
 SRC_FILES = $(MAIN) $(PARSING) $(GAME) $(GRAPHICS) $(UTILS)
 
