@@ -6,7 +6,7 @@
 #    By: selevray <selevray@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 14:42:25 by selevray          #+#    #+#              #
-#    Updated: 2026/02/19 11:51:12 by selevray         ###   ########.fr        #
+#    Updated: 2026/02/19 12:28:08 by selevray         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,23 +16,21 @@ CC          = gcc
 CFLAGS      = -Wall -Wextra -Werror
 
 # ---- Mandatory paths ----
-MAN_DIR     = mandatory
-MAN_SRCDIR  = $(MAN_DIR)/srcs
-MAN_OBJDIR  = $(MAN_DIR)/objs
-MAN_INC     = $(MAN_DIR)/includes
-MAN_MLX     = $(MAN_DIR)/minilibx-linux
-MAN_MLX_LIB = $(MAN_MLX)/libmlx.a
+SRCDIR      = srcs
+OBJDIR      = objs
+INCDIR      = includes
+MLX_PATH    = ./minilibx-linux
+MLX_LIB     = $(MLX_PATH)/libmlx.a
+MLX_FLAGS   = -L$(MLX_PATH) -lmlx -lm -lXext -lX11
 
 # ---- Bonus paths ----
 BNS_DIR     = bonus
 BNS_SRCDIR  = $(BNS_DIR)/srcs
 BNS_OBJDIR  = $(BNS_DIR)/objs
-BNS_INC     = $(BNS_DIR)/includes
+BNS_INCDIR  = $(BNS_DIR)/includes
 BNS_MLX     = $(BNS_DIR)/minilibx-linux
 BNS_MLX_LIB = $(BNS_MLX)/libmlx.a
-
-# ---- MLX link flags ----
-MLX_FLAGS   = -lmlx -lm -lXext -lX11
+BNS_FLAGS   = -L$(BNS_MLX) -lmlx -lm -lXext -lX11
 
 # ---- Source files (relative to srcs/) ----
 SRCS =	main.c \
@@ -65,26 +63,27 @@ SRCS =	main.c \
 		utils/str_utils.c \
 		utils/utils.c
 
-MAN_OBJS = $(addprefix $(MAN_OBJDIR)/, $(SRCS:.c=.o))
+OBJS     = $(addprefix $(OBJDIR)/, $(SRCS:.c=.o))
 BNS_OBJS = $(addprefix $(BNS_OBJDIR)/, $(SRCS:.c=.o))
 
-# ============================================================
-# ---- Rules ----
+HEADERS     = $(INCDIR)/so_long.h
+BNS_HEADERS = $(BNS_INCDIR)/so_long.h
+
 # ============================================================
 
 all: $(NAME)
 
 # ---- Mandatory ----
 
-$(MAN_MLX_LIB):
-	$(MAKE) -C $(MAN_MLX)
+$(MLX_LIB):
+	$(MAKE) -C $(MLX_PATH)
 
-$(NAME): $(MAN_MLX_LIB) $(MAN_OBJS)
-	$(CC) $(CFLAGS) $(MAN_OBJS) -L$(MAN_MLX) $(MLX_FLAGS) -o $(NAME)
+$(NAME): $(MLX_LIB) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(MLX_LIB) $(MLX_FLAGS) -o $(NAME)
 
-$(MAN_OBJDIR)/%.o: $(MAN_SRCDIR)/%.c $(MAN_INC)/so_long.h
+$(OBJDIR)/%.o: $(SRCDIR)/%.c $(HEADERS)
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -I$(MAN_INC) -I$(MAN_MLX) -c $< -o $@
+	$(CC) $(CFLAGS) -I$(INCDIR) -I$(MLX_PATH) -c $< -o $@
 
 # ---- Bonus ----
 
@@ -94,16 +93,16 @@ $(BNS_MLX_LIB):
 	$(MAKE) -C $(BNS_MLX)
 
 $(BONUS_NAME): $(BNS_MLX_LIB) $(BNS_OBJS)
-	$(CC) $(CFLAGS) $(BNS_OBJS) -L$(BNS_MLX) $(MLX_FLAGS) -o $(BONUS_NAME)
+	$(CC) $(CFLAGS) $(BNS_OBJS) $(BNS_MLX_LIB) $(BNS_FLAGS) -o $(BONUS_NAME)
 
-$(BNS_OBJDIR)/%.o: $(BNS_SRCDIR)/%.c $(BNS_INC)/so_long.h
+$(BNS_OBJDIR)/%.o: $(BNS_SRCDIR)/%.c $(BNS_HEADERS)
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -I$(BNS_INC) -I$(BNS_MLX) -c $< -o $@
+	$(CC) $(CFLAGS) -I$(BNS_INCDIR) -I$(BNS_MLX) -c $< -o $@
 
 # ---- Standard rules ----
 
 clean:
-	rm -rf $(MAN_OBJDIR) $(BNS_OBJDIR)
+	rm -rf $(OBJDIR) $(BNS_OBJDIR)
 
 fclean: clean
 	rm -f $(NAME) $(BONUS_NAME)
