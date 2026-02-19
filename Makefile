@@ -6,85 +6,108 @@
 #    By: selevray <selevray@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 14:42:25 by selevray          #+#    #+#              #
-#    Updated: 2026/02/16 13:01:06 by selevray         ###   ########.fr        #
+#    Updated: 2026/02/19 11:51:12 by selevray         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME        = so_long
-CC          = cc
-CFLAGS      = -Wall -Wextra -Werror -g3
-INCLUDES    = -I./includes
+BONUS_NAME  = so_long_bonus
+CC          = gcc
+CFLAGS      = -Wall -Wextra -Werror
 
-SRCDIR      = srcs
-OBJDIR      = objs
-INCDIR      = includes
-BNSDIR 		= bonus
-MLX_PATH    = ./minilibx-linux
-MLX_LIB     = $(MLX_PATH)/libmlx.a
-MLX_FLAGS   = -L$(MLX_PATH) -lmlx -lm -lXext -lX11
+# ---- Mandatory paths ----
+MAN_DIR     = mandatory
+MAN_SRCDIR  = $(MAN_DIR)/srcs
+MAN_OBJDIR  = $(MAN_DIR)/objs
+MAN_INC     = $(MAN_DIR)/includes
+MAN_MLX     = $(MAN_DIR)/minilibx-linux
+MAN_MLX_LIB = $(MAN_MLX)/libmlx.a
 
+# ---- Bonus paths ----
+BNS_DIR     = bonus
+BNS_SRCDIR  = $(BNS_DIR)/srcs
+BNS_OBJDIR  = $(BNS_DIR)/objs
+BNS_INC     = $(BNS_DIR)/includes
+BNS_MLX     = $(BNS_DIR)/minilibx-linux
+BNS_MLX_LIB = $(BNS_MLX)/libmlx.a
 
-# Main
-MAIN = main.c
+# ---- MLX link flags ----
+MLX_FLAGS   = -lmlx -lm -lXext -lX11
 
-# Parsing
-PARSING = parsing/parse_map.c \
-          parsing/validation.c \
-          parsing/validation_elements.c \
-          parsing/flood_fill.c \
-          parsing/map_utils.c \
-          parsing/utils.c
+# ---- Source files (relative to srcs/) ----
+SRCS =	main.c \
+		parsing/parse_map.c \
+		parsing/validation.c \
+		parsing/validation_elements.c \
+		parsing/flood_fill.c \
+		parsing/map_utils.c \
+		game/init_game.c \
+		game/init_entities.c \
+		game/init_textures.c \
+		game/control.c \
+		game/control_action.c \
+		game/enemy_move.c \
+		game/bullet_move.c \
+		game/gameloop.c \
+		game/render.c \
+		game/render_floor.c \
+		game/render_trans.c \
+		game/render_utils.c \
+		game/cleanup.c \
+		game/cleanup_helper.c \
+		graphics/load_textures_all.c \
+		graphics/load_textures_floor.c \
+		graphics/load_textures_hero.c \
+		graphics/load_textures_other.c \
+		utils/get_next_line.c \
+		utils/list_utils.c \
+		utils/str_base.c \
+		utils/str_utils.c \
+		utils/utils.c
 
-# Game
-GAME = game/init_game.c \
-	   game/animation.c \
-       game/render.c \
-	   game/render_trans.c \
-	   game/control.c \
-	   game/cleanup.c \
+MAN_OBJS = $(addprefix $(MAN_OBJDIR)/, $(SRCS:.c=.o))
+BNS_OBJS = $(addprefix $(BNS_OBJDIR)/, $(SRCS:.c=.o))
 
-# Graphics
-GRAPHICS = graphics/load_textures_all.c \
-           graphics/load_textures_floor.c \
-           graphics/load_textures_hero.c \
-           graphics/load_textures_other.c \
-
-# Utils
-UTILS = utils/get_next_line.c \
-        utils/list_utils.c \
-        utils/utils.c
-
-SRC_FILES = $(MAIN) $(PARSING) $(GAME) $(GRAPHICS) $(UTILS)
-
-OBJS        = $(addprefix $(OBJDIR)/, $(SRC_FILES:.c=.o))
-
-HEADERS     = $(INCDIR)/so_long.h \
+# ============================================================
+# ---- Rules ----
+# ============================================================
 
 all: $(NAME)
 
-$(MLX_LIB):
-	@echo "Compilation de la MiniLibX..."
-	$(MAKE) -C $(MLX_PATH)
+# ---- Mandatory ----
 
-$(NAME): $(OBJS) $(MLX_LIB)
-	@echo "Création de l'exécutable $(NAME)..."
-	$(CC) $(CFLAGS) $(OBJS) $(MLX_LIB) $(MLX_FLAGS) -o $(NAME)
-	@echo "$(NAME) compilé avec succès !"
+$(MAN_MLX_LIB):
+	$(MAKE) -C $(MAN_MLX)
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c $(HEADERS)
+$(NAME): $(MAN_MLX_LIB) $(MAN_OBJS)
+	$(CC) $(CFLAGS) $(MAN_OBJS) -L$(MAN_MLX) $(MLX_FLAGS) -o $(NAME)
+
+$(MAN_OBJDIR)/%.o: $(MAN_SRCDIR)/%.c $(MAN_INC)/so_long.h
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -I$(MLX_PATH) $(INCLUDES) -c $< -o $@
+	$(CC) $(CFLAGS) -I$(MAN_INC) -I$(MAN_MLX) -c $< -o $@
+
+# ---- Bonus ----
+
+bonus: $(BONUS_NAME)
+
+$(BNS_MLX_LIB):
+	$(MAKE) -C $(BNS_MLX)
+
+$(BONUS_NAME): $(BNS_MLX_LIB) $(BNS_OBJS)
+	$(CC) $(CFLAGS) $(BNS_OBJS) -L$(BNS_MLX) $(MLX_FLAGS) -o $(BONUS_NAME)
+
+$(BNS_OBJDIR)/%.o: $(BNS_SRCDIR)/%.c $(BNS_INC)/so_long.h
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -I$(BNS_INC) -I$(BNS_MLX) -c $< -o $@
+
+# ---- Standard rules ----
 
 clean:
-	@echo "Nettoyage des objets..."
-	rm -rf $(OBJDIR)
-	-make -C $(MLX_PATH) clean
+	rm -rf $(MAN_OBJDIR) $(BNS_OBJDIR)
 
 fclean: clean
-	@echo "Suppression de l'exécutable..."
-	rm -f $(NAME)
-	-make -C $(MLX_PATH) fclean
+	rm -f $(NAME) $(BONUS_NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re bonus
+.PHONY: all bonus clean fclean re
