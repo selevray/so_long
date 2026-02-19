@@ -71,6 +71,7 @@ int	handle_keypress(int keycode, t_game *game)
 	game->player_x = nx;
 	game->player_y = ny;
 	game->moves++;
+	write_moves_console(game);
 	toggle_anim(game);
 	move_enemies(game);
 	check_enemy_collision(game, nx, ny);

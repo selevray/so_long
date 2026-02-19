@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 10:47:24 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/19 12:43:05 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/19 13:11:18 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,23 @@ void	display_move_counter(t_game *game)
 		return ;
 	mlx_string_put(game->mlx, game->window, 10, 20, 0xFFFFFF, moves_str);
 	free(moves_str);
+}
+
+void	write_moves_console(t_game *game)
+{
+	char	*num;
+	char	*msg;
+
+	num = ft_itoa(game->moves);
+	if (!num)
+		return ;
+	msg = ft_strjoin("Mouvements: ", num);
+	free(num);
+	if (!msg)
+		return ;
+	write(1, msg, ft_strlen(msg));
+	write(1, "\n", 1);
+	free(msg);
 }
 
 void	render_bullets_on_tile(t_game *game, int x, int y)

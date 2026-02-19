@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 10:38:00 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/19 12:43:53 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/19 13:08:31 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	remove_enemy(t_game *game, int index)
 {
 	int	i;
 
-	printf("Ennemi %d supprimé!\n", index);
 	i = index;
 	while (i < game->enemy_count - 1)
 	{

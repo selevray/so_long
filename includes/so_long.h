@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 16:10:00 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/19 11:43:39 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/19 13:07:30 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,6 +265,7 @@ void				put_image_to_buffer(t_game *game, void *img, int x, int y);
 void				render_bullets_on_tile(t_game *game, int x, int y);
 void				shoot_bullet(t_game *game);
 void				display_move_counter(t_game *game);
+void				write_moves_console(t_game *game);
 void				display_win_message(t_game *game);
 
 // game/cleanup.c
