@@ -33,6 +33,19 @@ char	**list_to_array(t_list *head, int count_line)
 	return (map);
 }
 
+static int	check_extension(char *file_name)
+{
+	size_t	len;
+
+	len = ft_strlen(file_name);
+	if (len < 5)
+		return (0);
+	if (file_name[len - 4] == '.' && file_name[len - 3] == 'b'
+		&& file_name[len - 2] == 'e' && file_name[len - 1] == 'r')
+		return (1);
+	return (0);
+}
+
 static t_list	*build_list(int fd, int *count)
 {
 	t_list	*head;
@@ -65,7 +78,19 @@ char	**parse_map(char *file_name)
 	int		count_line;
 	char	**map;
 
+	if (!check_extension(file_name))
+	{
+		write(2, "Error\n", 6);
+		write(2, "La map doit avoir l'extension .ber\n", 35);
+		return (NULL);
+	}
 	fd = open(file_name, O_RDONLY);
+	if (fd == -1)
+	{
+		write(2, "Error\n", 6);
+		write(2, "Impossible d'ouvrir le fichier\n", 31);
+		return (NULL);
+	}
 	count_line = 0;
 	head = build_list(fd, &count_line);
 	close(fd);

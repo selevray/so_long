@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 16:10:00 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/19 13:07:30 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/19 13:22:00 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define KEY_RIGHT 65363
 # define KEY_SPACE 32
 
-/* Tile */ 
+/* Tile */
 # define TILE_SIZE 64
 # define MAGENTA 0x00FF00FF
 
@@ -258,7 +258,7 @@ void				*get_floor_texture(t_game *game, int x, int y);
 
 // game/render_trans.c
 void				put_image_with_transparency(t_game *game, void *floor,
-					void *sprite, t_pos pos);
+						void *sprite, t_pos pos);
 
 // game/render_utils.c
 void				put_image_to_buffer(t_game *game, void *img, int x, int y);

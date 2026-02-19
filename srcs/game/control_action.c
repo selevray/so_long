@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 10:38:43 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/19 13:12:49 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/19 13:21:07 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	check_enemy_collision(t_game *game, int nx, int ny)
 	{
 		if (nx == game->enemies[i].x && ny == game->enemies[i].y)
 		{
-			write(1, "-__You WIN__-", 14);
+			write(1, "-__You Loose__-\n", 16);
 			cleanup_game(game);
 			exit(0);
 		}
@@ -46,7 +46,7 @@ void	handle_tile_effects(t_game *game, int nx, int ny)
 	}
 	if (game->map[ny][nx] == EXIT && game->collectibles_left == 0)
 	{
-		write(1, "-__You Loose__-\n", 16);
+		write(1, "-__You WIN__-\n", 14);
 		cleanup_game(game);
 		exit(0);
 	}
