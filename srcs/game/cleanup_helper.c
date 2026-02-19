@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 15:25:31 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/18 15:26:39 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/19 12:43:18 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	cleanup_player_textures(t_game *game)
 
 void	cleanup_collectible_textures(t_game *game)
 {
-	int i;
+	int	i;
 
 	if (!game || !game->mlx)
 		return ;

@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 18:17:01 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/09 21:38:58 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/19 12:40:26 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,12 @@ int	check_all_accessible(char **map_copy, int nb_lines)
 
 int	is_path_valid(char **map, int nb_lines)
 {
-	int x;
-	int y;
-	char **map_copy;
-	int result;
-	int i;
+	int		x;
+	int		y;
+	char	**map_copy;
+	int		result;
+	int		i;
+
 	find_player_position(map, nb_lines, &x, &y);
 	map_copy = copy_map(map, nb_lines);
 	flood_fill(map_copy, x, y);

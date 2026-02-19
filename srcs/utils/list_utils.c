@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 16:07:40 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/10 19:17:48 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/19 12:41:37 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,14 @@ void	add_bottom(t_list **head, t_list *new)
 	current->next = new;
 }
 
-
-void free_list(t_list *head)
+void	free_list(t_list *head)
 {
-    t_list *temp;
-    
-    while (head)
-    {
-        temp = head;
-        head = head->next;
-        free(temp);
-    }
-}
+	t_list	*temp;
 
+	while (head)
+	{
+		temp = head;
+		head = head->next;
+		free(temp);
+	}
+}

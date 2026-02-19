@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 21:41:18 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/19 10:45:18 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/19 12:44:05 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ static int	init_mlx(t_game *game, int win_width, int win_height)
 	game->mlx = mlx_init();
 	if (game->mlx == NULL)
 		return (0);
-	game->window = mlx_new_window(game->mlx, win_width, win_height,
-			"Cat");
+	game->window = mlx_new_window(game->mlx, win_width, win_height, "Cat");
 	if (game->window == NULL)
 		return (0);
 	game->img_buffer = mlx_new_image(game->mlx, win_width, win_height);

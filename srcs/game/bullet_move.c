@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 10:42:28 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/19 10:43:10 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/19 12:43:45 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	check_bullet_enemies(t_game *game, int i)
 
 void	move_bullets(t_game *game)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (i < 10)
@@ -61,5 +61,3 @@ void	move_bullets(t_game *game)
 		i++;
 	}
 }
-
-

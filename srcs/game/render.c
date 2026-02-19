@@ -12,13 +12,15 @@
 
 #include "so_long.h"
 
-static void	render_floor(t_game *game, void *texture, int px, int py, int x,
-		int y)
+static void	render_floor(t_game *game, void *texture, int x, int y)
 {
 	void	*floor;
+	t_pos	pos;
 
+	pos.x = x * TILE_SIZE;
+	pos.y = y * TILE_SIZE;
 	floor = get_floor_texture(game, x, y);
-	put_image_with_transparency(game, floor, texture, px, py);
+	put_image_with_transparency(game, floor, texture, pos);
 }
 
 static void	render_tile_type(t_game *game, char type, int x, int y)
@@ -33,28 +35,30 @@ static void	render_tile_type(t_game *game, char type, int x, int y)
 	if (type == '0' || type == 'P' || type == 'X')
 		put_image_to_buffer(game, get_floor_texture(game, x, y), px, py);
 	if (type == 'T')
-		render_floor(game, game->textures.tree, px, py, x, y);
+		render_floor(game, game->textures.tree, x, y);
 	if (type == 'C')
 		render_floor(game,
 			game->textures.collectible[game->collectible_anim_frame % 6],
-			px, py, x, y);
+			x, y);
 	if (type == 'E')
-		render_floor(game, game->textures.exit, px, py, x, y);
+		render_floor(game, game->textures.exit, x, y);
 }
 
 static void	render_enemies_on_tile(t_game *game, int x, int y)
 {
 	int		i;
 	void	*floor;
+	t_pos	pos;
 
 	floor = get_floor_texture(game, x, y);
+	pos.x = x * TILE_SIZE;
+	pos.y = y * TILE_SIZE;
 	i = 0;
 	while (i < game->enemy_count)
 	{
 		if (x == game->enemies[i].x && y == game->enemies[i].y)
 			put_image_with_transparency(game, floor,
-				game->textures.enemy[game->enemies[i].direction],
-				x * TILE_SIZE, y * TILE_SIZE);
+				game->textures.enemy[game->enemies[i].direction], pos);
 		i++;
 	}
 }
@@ -62,13 +66,16 @@ static void	render_enemies_on_tile(t_game *game, int x, int y)
 void	render_tile(t_game *game, int x, int y)
 {
 	char	type;
+	t_pos	pos;
 
+	pos.x = x * TILE_SIZE;
+	pos.y = y * TILE_SIZE;
 	type = get_tile_type(game, x, y);
 	render_tile_type(game, type, x, y);
 	render_enemies_on_tile(game, x, y);
 	if (x == game->player_x && y == game->player_y)
 		put_image_with_transparency(game, get_floor_texture(game, x, y),
-			get_player_sprite(game), x * TILE_SIZE, y * TILE_SIZE);
+			get_player_sprite(game), pos);
 	render_bullets_on_tile(game, x, y);
 }
 

@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 22:11:23 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/10 17:43:26 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/19 13:02:08 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	load_water_textures(t_game *game)
 		return (0);
 	return (1);
 }
+
 int	load_floor_bottom_textures(t_game *game)
 {
 	game->textures.floor = load_texture(game->mlx, "texture/floor/floor.xpm");

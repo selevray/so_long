@@ -157,6 +157,12 @@ typedef struct s_water_neighbors
 	int				right;
 }					t_water_neighbors;
 
+typedef struct s_pos
+{
+	int				x;
+	int				y;
+}					t_pos;
+
 // ========== PARSING ==========
 
 // parsing/parse_map.c
@@ -252,7 +258,7 @@ void				*get_floor_texture(t_game *game, int x, int y);
 
 // game/render_trans.c
 void				put_image_with_transparency(t_game *game, void *floor,
-						void *sprite, int x, int y);
+					void *sprite, t_pos pos);
 
 // game/render_utils.c
 void				put_image_to_buffer(t_game *game, void *img, int x, int y);

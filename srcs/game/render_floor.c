@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 10:49:32 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/19 10:51:00 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/19 12:37:01 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ t_water_neighbors	check_water_neighbors(t_game *game, int x, int y)
 	water.bottom = 0;
 	water.left = 0;
 	water.right = 0;
-	if (get_tile_type(game, x, y - 1) == 'W')
+	if (y > 0 && get_tile_type(game, x, y - 1) == 'W')
 		water.top = 1;
-	if (get_tile_type(game, x, y + 1) == 'W')
+	if (y < game->map_height - 1 && get_tile_type(game, x, y + 1) == 'W')
 		water.bottom = 1;
-	if (get_tile_type(game, x - 1, y) == 'W')
+	if (x > 0 && get_tile_type(game, x - 1, y) == 'W')
 		water.left = 1;
-	if (get_tile_type(game, x + 1, y) == 'W')
+	if (x < game->map_width - 1 && get_tile_type(game, x + 1, y) == 'W')
 		water.right = 1;
 	return (water);
 }

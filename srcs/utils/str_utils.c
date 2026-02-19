@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 10:54:58 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/19 10:55:08 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/19 12:42:25 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,9 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	size_t i;
-	char *substr;
-	size_t str_len;
+	size_t	i;
+	char	*substr;
+	size_t	str_len;
 
 	if (!s)
 		return (NULL);

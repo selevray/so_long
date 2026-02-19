@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 15:24:06 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/19 10:43:36 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/19 12:43:27 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,17 @@ int	game_loop(t_game *game)
 	return (0);
 }
 
-void    *get_player_sprite(t_game *game)
+void	*get_player_sprite(t_game *game)
 {
-    void **sprites;
+	void	**sprites;
 
-    if (game->player_direction == 0)
-        sprites = game->textures.player_up;
-    else if (game->player_direction == 1)
-        sprites = game->textures.player_down;
-    else if (game->player_direction == 2)
-        sprites = game->textures.player_left;
-    else
-        sprites = game->textures.player_right;
-    return (sprites[game->anim_frame]);
+	if (game->player_direction == 0)
+		sprites = game->textures.player_up;
+	else if (game->player_direction == 1)
+		sprites = game->textures.player_down;
+	else if (game->player_direction == 2)
+		sprites = game->textures.player_left;
+	else
+		sprites = game->textures.player_right;
+	return (sprites[game->anim_frame]);
 }

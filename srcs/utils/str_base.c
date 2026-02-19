@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 10:52:11 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/19 10:54:26 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/19 12:42:20 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ size_t	ft_strlen(const char *str)
 
 char	*ft_strdup(const char *src)
 {
-	char *dest;
-	char *start;
+	char	*dest;
+	char	*start;
 
 	dest = malloc(ft_strlen(src) + 1);
 	if (!dest)

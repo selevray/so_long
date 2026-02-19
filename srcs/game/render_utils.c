@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 10:47:24 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/19 10:49:07 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/19 12:43:05 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,18 @@ void	render_bullets_on_tile(t_game *game, int x, int y)
 {
 	int		i;
 	void	*floor;
+	t_pos	pos;
 
 	floor = get_floor_texture(game, x, y);
+	pos.x = x * TILE_SIZE;
+	pos.y = y * TILE_SIZE;
 	i = 0;
 	while (i < 10)
 	{
 		if (game->bullets[i].active && x == game->bullets[i].x
 			&& y == game->bullets[i].y)
 			put_image_with_transparency(game, floor,
-				game->textures.bullet, x * TILE_SIZE, y * TILE_SIZE);
+				game->textures.bullet, pos);
 		i++;
 	}
 }

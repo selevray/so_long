@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 10:38:00 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/19 10:41:58 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/19 12:43:53 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,23 +54,23 @@ static void	apply_enemy_move(t_game *game, int i, int new_x, int new_y)
 
 void	remove_enemy(t_game *game, int index)
 {
-    int	i;
+	int	i;
 
-    printf("Ennemi %d supprimé!\n", index);
-    i = index;
-    while (i < game->enemy_count - 1)
-    {
-        game->enemies[i] = game->enemies[i + 1];
-        i++;
-    }
-    game->enemy_count--;
+	printf("Ennemi %d supprimé!\n", index);
+	i = index;
+	while (i < game->enemy_count - 1)
+	{
+		game->enemies[i] = game->enemies[i + 1];
+		i++;
+	}
+	game->enemy_count--;
 }
 
 void	move_enemies(t_game *game)
 {
-	int i;
-	int new_x;
-	int new_y;
+	int	i;
+	int	new_x;
+	int	new_y;
 
 	i = 0;
 	while (i < game->enemy_count)

@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 21:32:48 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/10 17:38:33 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/19 12:41:06 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 char	**list_to_array(t_list *head, int count_line)
 {
-	char **map;
-	int i;
-	t_list *temp;
+	char	**map;
+	int		i;
+	t_list	*temp;
 
 	map = malloc(sizeof(char *) * (count_line + 1));
 	if (map == NULL)
@@ -33,31 +33,41 @@ char	**list_to_array(t_list *head, int count_line)
 	return (map);
 }
 
-char	**parse_map(char *file_name)
+static t_list	*build_list(int fd, int *count)
 {
 	t_list	*head;
 	char	*line;
-	int		fd;
-	int		count_line;
 	t_list	*new;
-	char	**map;
-    char    *trimmed;
+	char	*trimmed;
 
 	head = NULL;
-	fd = open(file_name, O_RDONLY);
-	count_line = 0;
-	while ((line = get_next_line(fd)))
+	line = get_next_line(fd);
+	while (line)
 	{
 		new = malloc(sizeof(t_list));
 		if (new == NULL)
 			return (NULL);
-        trimmed = ft_strtrim(line, "\n");
-        free(line);
+		trimmed = ft_strtrim(line, "\n");
+		free(line);
 		new->line = trimmed;
 		new->next = NULL;
 		add_bottom(&head, new);
-		count_line++;
+		(*count)++;
+		line = get_next_line(fd);
 	}
+	return (head);
+}
+
+char	**parse_map(char *file_name)
+{
+	t_list	*head;
+	int		fd;
+	int		count_line;
+	char	**map;
+
+	fd = open(file_name, O_RDONLY);
+	count_line = 0;
+	head = build_list(fd, &count_line);
 	close(fd);
 	map = list_to_array(head, count_line);
 	free_list(head);
