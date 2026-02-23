@@ -46,6 +46,19 @@ static int	check_extension(char *file_name)
 	return (0);
 }
 
+static void	free_list_full(t_list *head)
+{
+	t_list	*tmp;
+
+	while (head)
+	{
+		tmp = head;
+		head = head->next;
+		free(tmp->line);
+		free(tmp);
+	}
+}
+
 static t_list	*build_list(int fd, int *count)
 {
 	t_list	*head;
@@ -59,9 +72,19 @@ static t_list	*build_list(int fd, int *count)
 	{
 		new = malloc(sizeof(t_list));
 		if (new == NULL)
+		{
+			free(line);
+			free_list_full(head);
 			return (NULL);
+		}
 		trimmed = ft_strtrim(line, "\n");
 		free(line);
+		if (trimmed == NULL)
+		{
+			free(new);
+			free_list_full(head);
+			return (NULL);
+		}
 		new->line = trimmed;
 		new->next = NULL;
 		add_bottom(&head, new);

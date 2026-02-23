@@ -32,6 +32,12 @@ static char	**setup_map(t_game *game, char *filename, int *nb_lines)
 	}
 	while (map[*nb_lines])
 		(*nb_lines)++;
+	if (*nb_lines == 0)
+	{
+		cleanup_map(map);
+		error_exit(game, "Error\nEmpty map\n", 14);
+		return (NULL);
+	}
 	if (!init_game(game, map, *nb_lines))
 	{
 		error_exit(game, "Error\nGame init failed\n", 23);
@@ -71,7 +77,7 @@ int	main(int argc, char **argv)
 {
 	char	**map;
 	int		nb_lines;
-	t_game	game;
+	t_game	game = {0};
 
 	nb_lines = 0;
 	if (argc != 2)
