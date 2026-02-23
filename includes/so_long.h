@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 16:10:00 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/19 13:22:00 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/23 11:49:57 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,7 @@ int					is_wall_line(char *line);
 int					is_surrounded_by_walls(char **map, int nb_lines);
 
 // parsing/validation_elements.c
+int					has_valid_chars(char **map, int nb_lines);
 int					has_valid_elements(char **map, int nb_lines);
 int					count_char(char **map, int nb_lines, char c);
 
@@ -208,6 +209,7 @@ char				*ft_substr(char const *s, unsigned int start, size_t len);
 
 // utils/utils.c
 char				*ft_itoa(int n);
+void				*ft_memset(void *s, int c, size_t n);
 
 // utils/list_utils.c
 void				add_bottom(t_list **head, t_list *new);

@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 21:36:58 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/19 12:38:52 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/23 14:19:11 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,29 @@ int	count_char(char **map, int nb_lines, char c)
 		i++;
 	}
 	return (count);
+}
+
+int	has_valid_chars(char **map, int nb_lines)
+{
+	int	i;
+	int	j;
+	char	c;
+
+	i = 0;
+	while (i < nb_lines)
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			c = map[i][j];
+			if (c != '1' && c != '0' && c != 'C' && c != 'E'
+				&& c != 'P' && c != 'X')
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
 }
 
 int	has_valid_elements(char **map, int nb_lines)

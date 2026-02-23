@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 17:09:04 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/23 10:26:44 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/23 14:19:46 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ static int	validate_map(t_game *game, char **map, int nb_lines)
 		return (error_exit(game, "Error\nMap is not rectangular\n", 29));
 	if (!is_surrounded_by_walls(map, nb_lines))
 		return (error_exit(game, "Error\nMap not surrounded by walls\n", 35));
+	if (!has_valid_chars(map, nb_lines))
+		return (error_exit(game, "Error\nInvalid character in map\n", 31));
 	if (!has_valid_elements(map, nb_lines))
 		return (error_exit(game, "Error\nInvalid map elements\n", 27));
 	if (!is_path_valid(map, nb_lines))
@@ -79,7 +81,7 @@ int	main(int argc, char **argv)
 	int		nb_lines;
 	t_game	game;
 
-	game = {0};
+    ft_memset(&game, 0, sizeof(t_game));
 	nb_lines = 0;
 	if (argc != 2)
 	{
