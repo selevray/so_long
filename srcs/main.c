@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 17:09:04 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/19 10:59:02 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/23 10:26:44 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,9 @@ int	main(int argc, char **argv)
 {
 	char	**map;
 	int		nb_lines;
-	t_game	game = {0};
+	t_game	game;
 
+	game = {0};
 	nb_lines = 0;
 	if (argc != 2)
 	{

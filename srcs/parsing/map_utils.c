@@ -12,6 +12,62 @@
 
 #include "so_long.h"
 
+static void	free_list_full(t_list *head)
+{
+	t_list	*tmp;
+
+	while (head)
+	{
+		tmp = head;
+		head = head->next;
+		free(tmp->line);
+		free(tmp);
+	}
+}
+
+static int	add_line_to_list(t_list **head, char *line, int *count)
+{
+	t_list	*new;
+	char	*trimmed;
+
+	new = malloc(sizeof(t_list));
+	if (new == NULL)
+	{
+		free(line);
+		free_list_full(*head);
+		return (-1);
+	}
+	trimmed = ft_strtrim(line, "\n");
+	free(line);
+	if (trimmed == NULL)
+	{
+		free(new);
+		free_list_full(*head);
+		return (-1);
+	}
+	new->line = trimmed;
+	new->next = NULL;
+	add_bottom(head, new);
+	(*count)++;
+	return (0);
+}
+
+t_list	*build_list(int fd, int *count)
+{
+	t_list	*head;
+	char	*line;
+
+	head = NULL;
+	line = get_next_line(fd);
+	while (line)
+	{
+		if (add_line_to_list(&head, line, count) == -1)
+			return (NULL);
+		line = get_next_line(fd);
+	}
+	return (head);
+}
+
 void	find_player_position(char **map, int nb_lines, int *x, int *y)
 {
 	int	i;

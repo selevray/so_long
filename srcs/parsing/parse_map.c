@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 21:32:48 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/19 12:41:06 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/23 11:35:24 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,54 +44,6 @@ static int	check_extension(char *file_name)
 		&& file_name[len - 2] == 'e' && file_name[len - 1] == 'r')
 		return (1);
 	return (0);
-}
-
-static void	free_list_full(t_list *head)
-{
-	t_list	*tmp;
-
-	while (head)
-	{
-		tmp = head;
-		head = head->next;
-		free(tmp->line);
-		free(tmp);
-	}
-}
-
-static t_list	*build_list(int fd, int *count)
-{
-	t_list	*head;
-	char	*line;
-	t_list	*new;
-	char	*trimmed;
-
-	head = NULL;
-	line = get_next_line(fd);
-	while (line)
-	{
-		new = malloc(sizeof(t_list));
-		if (new == NULL)
-		{
-			free(line);
-			free_list_full(head);
-			return (NULL);
-		}
-		trimmed = ft_strtrim(line, "\n");
-		free(line);
-		if (trimmed == NULL)
-		{
-			free(new);
-			free_list_full(head);
-			return (NULL);
-		}
-		new->line = trimmed;
-		new->next = NULL;
-		add_bottom(&head, new);
-		(*count)++;
-		line = get_next_line(fd);
-	}
-	return (head);
 }
 
 char	**parse_map(char *file_name)

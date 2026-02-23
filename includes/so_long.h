@@ -185,6 +185,7 @@ void				flood_fill(char **map, int x, int y);
 int					check_all_accessible(char **map_copy, int nb_lines);
 
 // parsing/map_utils.c
+t_list				*build_list(int fd, int *count);
 char				**copy_map(char **map, int nb_lines);
 void				find_player_position(char **map, int nb_lines, int *x,
 						int *y);
