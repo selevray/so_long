@@ -12,8 +12,8 @@
 
 NAME        = so_long
 BONUS_NAME  = so_long_bonus
-CC          = gcc
-CFLAGS      = -Wall -Wextra -Werror
+CC          = cc
+CFLAGS      = -Wall -g3 -Wextra -Werror
 
 # ---- Mandatory paths ----
 SRCDIR      = srcs

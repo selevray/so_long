@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 18:17:01 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/19 12:40:26 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/23 15:16:37 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	flood_fill(char **map, int x, int y)
 {
-	if (map[y][x] == '1' || map[y][x] == 'V')
+	if (map[y][x] == WALL || map[y][x] == 'V')
 		return ;
 	map[y][x] = 'V';
 	flood_fill(map, x, y - 1);
@@ -34,7 +34,7 @@ int	check_all_accessible(char **map_copy, int nb_lines)
 		j = 0;
 		while (map_copy[i][j])
 		{
-			if (map_copy[i][j] == 'C' || map_copy[i][j] == 'E')
+			if (map_copy[i][j] == COLLECTIBLE || map_copy[i][j] == ENNEMY)
 				return (0);
 			j++;
 		}

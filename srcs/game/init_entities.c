@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 10:44:37 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/19 12:44:27 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/23 15:10:47 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,14 @@ static void	fill_enemies(t_game *game, char **map, int nb_lines)
 	}
 }
 
-void	init_enemies(t_game *game, char **map, int nb_lines)
+int	init_enemies(t_game *game, char **map, int nb_lines)
 {
 	game->enemy_count = count_char(map, nb_lines, 'X');
 	game->enemies = malloc(sizeof(t_enemy) * game->enemy_count);
 	if (!game->enemies)
-		return ;
+		return (1);
 	fill_enemies(game, map, nb_lines);
+	return (0);
 }
 
 void	init_all_textures_null(t_game *game)

@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 21:38:32 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/19 12:38:32 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/23 15:16:06 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	find_player_position(char **map, int nb_lines, int *x, int *y)
 		j = 0;
 		while (map[i][j])
 		{
-			if (map[i][j] == 'P')
+			if (map[i][j] == PLAYER)
 			{
 				*x = j;
 				*y = i;

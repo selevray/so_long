@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 10:20:29 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/16 11:52:29 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/23 15:06:43 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 void	*load_texture(void *mlx, char *path)
 {
-	int		widht;
+	int		width;
 	int		height;
 	void	*texture;
 
-	texture = mlx_xpm_file_to_image(mlx, path, &widht, &height);
+	width = 0;
+	height = 0;
+	texture = mlx_xpm_file_to_image(mlx, path, &width, &height);
 	if (!texture)
 	{
 		write(2, "Error\nFailed to load texture: ", 31);

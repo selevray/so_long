@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 21:36:58 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/23 14:19:11 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/23 15:15:20 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ int	count_char(char **map, int nb_lines, char c)
 
 int	has_valid_chars(char **map, int nb_lines)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	char	c;
 
 	i = 0;
@@ -47,8 +47,8 @@ int	has_valid_chars(char **map, int nb_lines)
 		while (map[i][j])
 		{
 			c = map[i][j];
-			if (c != '1' && c != '0' && c != 'C' && c != 'E'
-				&& c != 'P' && c != 'X')
+			if (c != WALL && c != EMPTY && c != COLLECTIBLE && c != EXIT
+				&& c != PLAYER && c != ENNEMY)
 				return (0);
 			j++;
 		}
@@ -63,9 +63,9 @@ int	has_valid_elements(char **map, int nb_lines)
 	int	count_e;
 	int	count_c;
 
-	count_p = count_char(map, nb_lines, 'P');
-	count_e = count_char(map, nb_lines, 'E');
-	count_c = count_char(map, nb_lines, 'C');
+	count_p = count_char(map, nb_lines, PLAYER);
+	count_e = count_char(map, nb_lines, EMPTY);
+	count_c = count_char(map, nb_lines, COLLECTIBLE);
 	if (count_p != 1 || count_e != 1 || count_c < 1)
 		return (0);
 	return (1);

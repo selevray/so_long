@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 21:33:44 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/19 12:40:37 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/23 15:15:51 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	is_wall_line(char *line)
 {
 	while (*line)
 	{
-		if (*line != '1')
+		if (*line != WALL)
 			return (0);
 		line++;
 	}
@@ -71,7 +71,7 @@ int	is_surrounded_by_walls(char **map, int nb_lines)
 	i = 1;
 	while (i < nb_lines)
 	{
-		if (map[i][0] != '1' || map[i][width - 1] != '1')
+		if (map[i][0] != WALL || map[i][width - 1] != WALL)
 			return (0);
 		i++;
 	}
