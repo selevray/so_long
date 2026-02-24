@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 21:32:48 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/23 11:35:24 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/24 12:06:19 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ static int	check_extension(char *file_name)
 	if (len < 5)
 		return (0);
 	if (file_name[len - 4] == '.' && file_name[len - 3] == 'b'
-		&& file_name[len - 2] == 'e' && file_name[len - 1] == 'r')
+		&& file_name[len - 2] == 'e' && file_name[len - 1] == 'r'
+		&& file_name[len - 5] != '/')
 		return (1);
 	return (0);
 }
@@ -56,14 +57,14 @@ char	**parse_map(char *file_name)
 	if (!check_extension(file_name))
 	{
 		write(2, "Error\n", 6);
-		write(2, "La map doit avoir l'extension .ber\n", 35);
+		write(2, "The file extension must be .ber\n", 33);
 		return (NULL);
 	}
 	fd = open(file_name, O_RDONLY);
 	if (fd == -1)
 	{
 		write(2, "Error\n", 6);
-		write(2, "Impossible d'ouvrir le fichier\n", 31);
+		write(2, "Unable to open the file\n", 24);
 		return (NULL);
 	}
 	count_line = 0;

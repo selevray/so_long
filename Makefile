@@ -6,7 +6,7 @@
 #    By: selevray <selevray@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 14:42:25 by selevray          #+#    #+#              #
-#    Updated: 2026/02/19 12:28:08 by selevray         ###   ########.fr        #
+#    Updated: 2026/02/24 12:13:40 by selevray         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,15 +22,6 @@ INCDIR      = includes
 MLX_PATH    = ./minilibx-linux
 MLX_LIB     = $(MLX_PATH)/libmlx.a
 MLX_FLAGS   = -L$(MLX_PATH) -lmlx -lm -lXext -lX11
-
-# ---- Bonus paths ----
-BNS_DIR     = bonus
-BNS_SRCDIR  = $(BNS_DIR)/srcs
-BNS_OBJDIR  = $(BNS_DIR)/objs
-BNS_INCDIR  = $(BNS_DIR)/includes
-BNS_MLX     = $(BNS_DIR)/minilibx-linux
-BNS_MLX_LIB = $(BNS_MLX)/libmlx.a
-BNS_FLAGS   = -L$(BNS_MLX) -lmlx -lm -lXext -lX11
 
 # ---- Source files (relative to srcs/) ----
 SRCS =	main.c \
@@ -64,12 +55,8 @@ SRCS =	main.c \
 		utils/utils.c
 
 OBJS     = $(addprefix $(OBJDIR)/, $(SRCS:.c=.o))
-BNS_OBJS = $(addprefix $(BNS_OBJDIR)/, $(SRCS:.c=.o))
 
 HEADERS     = $(INCDIR)/so_long.h
-BNS_HEADERS = $(BNS_INCDIR)/so_long.h
-
-# ============================================================
 
 all: $(NAME)
 
@@ -85,27 +72,13 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c $(HEADERS)
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -I$(INCDIR) -I$(MLX_PATH) -c $< -o $@
 
-# ---- Bonus ----
-
-bonus: $(BONUS_NAME)
-
-$(BNS_MLX_LIB):
-	$(MAKE) -C $(BNS_MLX)
-
-$(BONUS_NAME): $(BNS_MLX_LIB) $(BNS_OBJS)
-	$(CC) $(CFLAGS) $(BNS_OBJS) $(BNS_MLX_LIB) $(BNS_FLAGS) -o $(BONUS_NAME)
-
-$(BNS_OBJDIR)/%.o: $(BNS_SRCDIR)/%.c $(BNS_HEADERS)
-	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -I$(BNS_INCDIR) -I$(BNS_MLX) -c $< -o $@
-
 # ---- Standard rules ----
 
 clean:
 	rm -rf $(OBJDIR) $(BNS_OBJDIR)
 
 fclean: clean
-	rm -f $(NAME) $(BONUS_NAME)
+	rm -f $(NAME)
 
 re: fclean all
 

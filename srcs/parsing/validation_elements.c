@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 21:36:58 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/23 15:15:20 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/24 12:01:36 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	has_valid_elements(char **map, int nb_lines)
 	int	count_c;
 
 	count_p = count_char(map, nb_lines, PLAYER);
-	count_e = count_char(map, nb_lines, EMPTY);
+	count_e = count_char(map, nb_lines, EXIT);
 	count_c = count_char(map, nb_lines, COLLECTIBLE);
 	if (count_p != 1 || count_e != 1 || count_c < 1)
 		return (0);

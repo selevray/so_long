@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 17:09:04 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/23 14:19:46 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/24 12:11:57 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static char	**setup_map(t_game *game, char *filename, int *nb_lines)
 	if (*nb_lines == 0)
 	{
 		cleanup_map(map);
-		error_exit(game, "Error\nEmpty map\n", 14);
+		error_exit(game, "Error\nEmpty map\n", 16);
 		return (NULL);
 	}
 	if (!init_game(game, map, *nb_lines))
@@ -81,7 +81,7 @@ int	main(int argc, char **argv)
 	int		nb_lines;
 	t_game	game;
 
-    ft_memset(&game, 0, sizeof(t_game));
+	ft_memset(&game, 0, sizeof(t_game));
 	nb_lines = 0;
 	if (argc != 2)
 	{
