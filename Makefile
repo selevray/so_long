@@ -1,27 +1,21 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: selevray <selevray@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2026/01/21 14:42:25 by selevray          #+#    #+#              #
-#    Updated: 2026/02/24 12:13:40 by selevray         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME        = so_long
 BONUS_NAME  = so_long_bonus
 CC          = cc
 CFLAGS      = -Wall -g3 -Wextra -Werror
 
-# ---- Mandatory paths ----
 SRCDIR      = srcs
 OBJDIR      = objs
 INCDIR      = includes
 MLX_PATH    = ./minilibx-linux
 MLX_LIB     = $(MLX_PATH)/libmlx.a
 MLX_FLAGS   = -L$(MLX_PATH) -lmlx -lm -lXext -lX11
+
+BNS_SRCDIR  = srcs_bonus
+BNS_OBJDIR  = objs_bonus
+BNS_INCDIR  = includes
+BNS_SRCS    = $(SRCS)
+BNS_OBJS    = $(addprefix $(BNS_OBJDIR)/, $(BNS_SRCS:.c=.o))
+BNS_HEADERS = $(BNS_INCDIR)/so_long.h
 
 # ---- Source files (relative to srcs/) ----
 SRCS =	main.c \
@@ -59,6 +53,7 @@ OBJS     = $(addprefix $(OBJDIR)/, $(SRCS:.c=.o))
 HEADERS     = $(INCDIR)/so_long.h
 
 all: $(NAME)
+bonus: $(BONUS_NAME)
 
 # ---- Mandatory ----
 
@@ -71,6 +66,16 @@ $(NAME): $(MLX_LIB) $(OBJS)
 $(OBJDIR)/%.o: $(SRCDIR)/%.c $(HEADERS)
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -I$(INCDIR) -I$(MLX_PATH) -c $< -o $@
+
+
+# ---- Bonus ----
+
+$(BONUS_NAME): $(MLX_LIB) $(BNS_OBJS)
+	$(CC) $(CFLAGS) $(BNS_OBJS) $(MLX_LIB) $(MLX_FLAGS) -o $(BONUS_NAME)
+
+$(BNS_OBJDIR)/%.o: $(BNS_SRCDIR)/%.c $(BNS_HEADERS)
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -I$(BNS_INCDIR) -I$(MLX_PATH) -c $< -o $@
 
 # ---- Standard rules ----
 

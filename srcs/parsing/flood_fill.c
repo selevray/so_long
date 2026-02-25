@@ -6,7 +6,7 @@
 /*   By: selevray <selevray@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 18:17:01 by selevray          #+#    #+#             */
-/*   Updated: 2026/02/23 15:16:37 by selevray         ###   ########.fr       */
+/*   Updated: 2026/02/25 09:51:56 by selevray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	check_all_accessible(char **map_copy, int nb_lines)
 		j = 0;
 		while (map_copy[i][j])
 		{
-			if (map_copy[i][j] == COLLECTIBLE || map_copy[i][j] == ENNEMY)
+			if (map_copy[i][j] == COLLECTIBLE || map_copy[i][j] == EXIT)
 				return (0);
 			j++;
 		}
