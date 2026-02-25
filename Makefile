@@ -10,12 +10,10 @@ MLX_PATH    = ./minilibx-linux
 MLX_LIB     = $(MLX_PATH)/libmlx.a
 MLX_FLAGS   = -L$(MLX_PATH) -lmlx -lm -lXext -lX11
 
-BNS_SRCDIR  = srcs_bonus
-BNS_OBJDIR  = objs_bonus
+BNS_SRCDIR  = srcs
+BNS_OBJDIR  = objs
 BNS_INCDIR  = includes
 BNS_SRCS    = $(SRCS)
-BNS_OBJS    = $(addprefix $(BNS_OBJDIR)/, $(BNS_SRCS:.c=.o))
-BNS_HEADERS = $(BNS_INCDIR)/so_long.h
 
 # ---- Source files (relative to srcs/) ----
 SRCS =	main.c \
@@ -49,6 +47,7 @@ SRCS =	main.c \
 		utils/utils.c
 
 OBJS     = $(addprefix $(OBJDIR)/, $(SRCS:.c=.o))
+BNS_OBJS    = $(addprefix $(BNS_OBJDIR)/, $(BNS_SRCS:.c=.o))
 
 HEADERS     = $(INCDIR)/so_long.h
 
@@ -70,12 +69,12 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c $(HEADERS)
 
 # ---- Bonus ----
 
-$(BONUS_NAME): $(MLX_LIB) $(BNS_OBJS)
-	$(CC) $(CFLAGS) $(BNS_OBJS) $(MLX_LIB) $(MLX_FLAGS) -o $(BONUS_NAME)
+$(BONUS_NAME): $(MLX_LIB) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(MLX_LIB) $(MLX_FLAGS) -o $(BONUS_NAME)
 
 $(BNS_OBJDIR)/%.o: $(BNS_SRCDIR)/%.c $(BNS_HEADERS)
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -I$(BNS_INCDIR) -I$(MLX_PATH) -c $< -o $@
+	$(CC) $(CFLAGS) -I$(INCDIR) -I$(MLX_PATH) -c $< -o $@
 
 # ---- Standard rules ----
 
